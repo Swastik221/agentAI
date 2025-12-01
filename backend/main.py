@@ -33,11 +33,9 @@ genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
 class ResearchRequest(BaseModel):
     topic: str
 
-@app.post("/research")
+@app.post("/api/research")
 async def research(request: ResearchRequest):
     try:
-        with open("backend_debug.log", "a") as f:
-            f.write(f"Received research request for: {request.topic}\n")
         print(f"Received research request for: {request.topic}")
         
         # Check for API keys
@@ -103,12 +101,10 @@ async def research(request: ResearchRequest):
                 ]
 
         if not search_results:
-            with open("backend_debug.log", "a") as f:
-                f.write("Error: No search results found.\n")
+            print("Error: No search results found.")
             return {"error": "No search results found."}
             
-        with open("backend_debug.log", "a") as f:
-            f.write(f"Found {len(search_results)} search results.\n")
+        print(f"Found {len(search_results)} search results.")
             
         # 2. Store in Memory
         print("Step 2: Storing in Memory...")
@@ -128,11 +124,8 @@ async def research(request: ResearchRequest):
         print("Step 4: Generating Report...")
         try:
             report_data = generate_report(request.topic, context_docs)
-            with open("backend_debug.log", "a") as f:
-                f.write(f"Report generated. Keys: {list(report_data.keys())}\n")
+            print(f"Report generated. Keys: {list(report_data.keys())}")
         except Exception as e:
-            with open("backend_debug.log", "a") as f:
-                f.write(f"Generator Error: {e}\n")
             print(f"Generator Error: {e}")
             return {"error": str(e)}
         

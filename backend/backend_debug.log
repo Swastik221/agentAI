@@ -38,3 +38,27 @@ Report generated. Keys: ['topic', 'insights', 'credibility_score', 'report_conte
 Received research request for: ai
 Found 7 search results.
 Report generated. Keys: ['topic', 'insights', 'credibility_score', 'report_content', 'sources']
+Received research request for: ai
+Found 7 search results.
+Report generated. Keys: ['topic', 'insights', 'credibility_score', 'report_content', 'sources']
+Received research request for: Ai
+Found 7 search results.
+Generator Error: Invalid operation: The `response.text` quick accessor requires the response to contain a valid `Part`, but none were returned. The candidate's [finish_reason](https://ai.google.dev/api/generate-content#finishreason) is 1.
+Received research request for: Ai
+Found 7 search results.
+Report generated. Keys: ['topic', 'insights', 'credibility_score', 'report_content', 'sources']
+Received research request for: Quantum Computing
+Found 7 search results.
+Report generated. Keys: ['topic', 'insights', 'credibility_score', 'report_content', 'sources']
+Received research request for: ai
+Found 7 search results.
+Report generated. Keys: ['topic', 'insights', 'credibility_score', 'report_content', 'sources']
+Received research request for: Shikha
+Found 7 search results.
+Report generated. Keys: ['topic', 'insights', 'credibility_score', 'report_content', 'sources']
+Received research request for: Shikha
+Found 7 search results.
+Report generated. Keys: ['topic', 'insights', 'credibility_score', 'report_content']
+Received research request for: AI
+Found 7 search results.
+Report generated. Keys: ['topic', 'insights', 'credibility_score', 'report_content', 'sources']

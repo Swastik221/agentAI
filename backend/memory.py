@@ -8,8 +8,7 @@ class ResearchMemory:
         Initialize ChromaDB client and collection.
         """
         self.client = chromadb.Client(Settings(
-            is_persistent=True,
-            persist_directory="./chroma_db"
+            is_persistent=False
         ))
         self.collection = self.client.get_or_create_collection(name=collection_name)
 
