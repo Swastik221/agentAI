@@ -3,7 +3,7 @@ import ReactMarkdown from 'react-markdown';
 import { FileText, Link2 } from 'lucide-react';
 import { motion } from 'framer-motion';
 
-const ReportViewer = ({ reportContent, sources }) => {
+const ReportViewer = ({ reportContent = "", sources = [] }) => {
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}

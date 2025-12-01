@@ -56,7 +56,7 @@ def generate_report(topic: str, context: list):
     """
 
     try:
-        model = genai.GenerativeModel('gemini-pro')
+        model = genai.GenerativeModel('gemini-flash-latest')
         response = model.generate_content(prompt)
         
         # Clean up response text to ensure it's valid JSON
@@ -70,10 +70,8 @@ def generate_report(topic: str, context: list):
 
     except Exception as e:
         print(f"Error generating report: {e}")
-        return {
-            "error": "Failed to generate report",
-            "details": str(e)
-        }
+        # Re-raise the exception so main.py catches it and logs it to file
+        raise e
 
 if __name__ == "__main__":
     # Test the generator

@@ -1,0 +1,31 @@
+Received research request for: Artificial Intelligence Trends
+Found 7 search results.
+Step 4: Generating Report...
+Report generated. Keys: ['error', 'details']
+Received research request for: Artificial Intelligence Trends
+Found 7 search results.
+Step 4: Generating Report...
+Generator Error: 404 models/gemini-pro is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.
+Report generated. Keys: ['error', 'details']
+Received research request for: Artificial Intelligence Trends
+Found 7 search results.
+Step 4: Generating Report...
+Generator Error: 404 models/gemini-1.5-flash is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.
+Report generated. Keys: ['error', 'details']
+Received research request for: Artificial Intelligence Trends
+Found 7 search results.
+Step 4: Generating Report...
+Report generated. Keys: ['topic', 'insights', 'credibility_score', 'report_content', 'sources']
+Received research request for: Artificial Intelligence Trends
+Found 7 search results.
+Received research request for: quantum
+Found 7 search results.
+Received research request for: Quantum Computing Advances
+Found 7 search results.
+Generator Error: name 'context' is not defined
+Received research request for: Quantum Computing Advances
+Found 7 search results.
+Generator Error: 403 Your API key was reported as leaked. Please use another API key.
+Received research request for: Quantum Computing Advances
+Found 7 search results.
+Report generated. Keys: ['topic', 'insights', 'credibility_score', 'report_content', 'sources']
