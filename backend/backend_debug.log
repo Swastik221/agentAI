@@ -29,3 +29,12 @@ Generator Error: 403 Your API key was reported as leaked. Please use another API
 Received research request for: Quantum Computing Advances
 Found 7 search results.
 Report generated. Keys: ['topic', 'insights', 'credibility_score', 'report_content', 'sources']
+Received research request for: ai
+Found 7 search results.
+Generator Error: Expecting value: line 1 column 1 (char 0)
+Received research request for: AI
+Found 7 search results.
+Report generated. Keys: ['topic', 'insights', 'credibility_score', 'report_content', 'sources']
+Received research request for: ai
+Found 7 search results.
+Report generated. Keys: ['topic', 'insights', 'credibility_score', 'report_content', 'sources']
