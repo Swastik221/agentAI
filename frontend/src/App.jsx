@@ -1,5 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { useReactToPrint } from 'react-to-print';
+import { BrainCircuit } from 'lucide-react';
 import SearchInput from './components/SearchInput';
 import ResultsCard from './components/ResultsCard';
 import ReportViewer from './components/ReportViewer';
@@ -56,13 +57,24 @@ function App() {
   });
 
   return (
-    <div className="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-4xl mx-auto space-y-8">
-        <header className="text-center space-y-4">
-          <h1 className="text-4xl font-extrabold text-gray-900 tracking-tight">
-            AI Research <span className="text-blue-600">Agent</span>
+    <div className="min-h-screen text-gray-100 selection:bg-blue-500/30">
+      {/* Background Blobs */}
+      <div className="fixed inset-0 overflow-hidden pointer-events-none -z-10">
+        <div className="absolute top-0 left-1/4 w-96 h-96 bg-blue-600/20 rounded-full blur-3xl animate-blob"></div>
+        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-violet-600/20 rounded-full blur-3xl animate-blob animation-delay-2000"></div>
+      </div>
+
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <header className="text-center mb-16 space-y-4">
+          <div className="flex justify-center mb-6">
+            <div className="p-4 bg-dark-800 rounded-2xl border border-dark-700 shadow-2xl">
+              <BrainCircuit className="w-12 h-12 text-blue-500" />
+            </div>
+          </div>
+          <h1 className="text-5xl font-extrabold tracking-tight">
+            AI Research <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-violet-400">Agent</span>
           </h1>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+          <p className="text-xl text-gray-400 max-w-2xl mx-auto">
             Autonomous deep research powered by Google Search & GPT-4.
           </p>
         </header>
@@ -70,22 +82,13 @@ function App() {
         <SearchInput onSearch={handleSearch} isLoading={isLoading} />
 
         {error && (
-          <div className="bg-red-50 border-l-4 border-red-500 p-4 rounded-md">
-            <div className="flex">
-              <div className="flex-shrink-0">
-                <svg className="h-5 w-5 text-red-400" viewBox="0 0 20 20" fill="currentColor">
-                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
-                </svg>
-              </div>
-              <div className="ml-3">
-                <p className="text-sm text-red-700">{error}</p>
-              </div>
-            </div>
+          <div className="mt-8 bg-red-500/10 border border-red-500/20 p-4 rounded-xl text-red-400 text-center animate-fade-in">
+            {error}
           </div>
         )}
 
         {data && (
-          <div className="space-y-8 animate-fade-in">
+          <div className="mt-16 space-y-12">
             <ResultsCard
               insights={data.insights}
               credibilityScore={data.credibility_score}

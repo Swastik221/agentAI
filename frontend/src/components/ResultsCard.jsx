@@ -1,31 +1,69 @@
 import React from 'react';
+import { motion } from 'framer-motion';
+import { Lightbulb, CheckCircle, AlertTriangle } from 'lucide-react';
 
-const ResultsCard = ({ insights, credibilityScore }) => {
+const ResultsCard = ({ insights = [], credibilityScore = 0 }) => {
+  const container = {
+    hidden: { opacity: 0 },
+    show: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1
+      }
+    }
+  };
+
+  const item = {
+    hidden: { opacity: 0, x: -20 },
+    show: { opacity: 1, x: 0 }
+  };
+
   return (
-    <div className="bg-white rounded-xl shadow-lg p-6 mb-6">
-      <div className="flex justify-between items-center mb-4">
-        <h2 className="text-xl font-bold text-gray-800">Key Insights</h2>
-        <div className="flex items-center gap-2">
-          <span className="text-sm text-gray-500">Credibility Score:</span>
-          <span className={`font-bold px-3 py-1 rounded-full ${credibilityScore >= 80 ? 'bg-green-100 text-green-700' :
-              credibilityScore >= 60 ? 'bg-yellow-100 text-yellow-700' :
-                'bg-red-100 text-red-700'
+    <motion.div
+      initial={{ opacity: 0, scale: 0.95 }}
+      animate={{ opacity: 1, scale: 1 }}
+      className="bg-dark-800/50 backdrop-blur-xl border border-dark-700 rounded-2xl p-8 shadow-xl"
+    >
+      <div className="flex justify-between items-center mb-8">
+        <div className="flex items-center gap-3">
+          <div className="p-3 bg-blue-500/10 rounded-xl">
+            <Lightbulb className="w-6 h-6 text-blue-400" />
+          </div>
+          <h2 className="text-2xl font-bold text-gray-100">Key Insights</h2>
+        </div>
+
+        <div className="flex items-center gap-3 bg-dark-900/50 px-4 py-2 rounded-lg border border-dark-700">
+          <span className="text-sm text-gray-400">Credibility Score</span>
+          <div className={`flex items-center gap-2 font-bold ${credibilityScore >= 80 ? 'text-green-400' :
+            credibilityScore >= 60 ? 'text-yellow-400' :
+              'text-red-400'
             }`}>
+            {credibilityScore >= 80 ? <CheckCircle className="w-4 h-4" /> : <AlertTriangle className="w-4 h-4" />}
             {credibilityScore}/100
-          </span>
+          </div>
         </div>
       </div>
-      <ul className="space-y-3">
+
+      <motion.ul
+        variants={container}
+        initial="hidden"
+        animate="show"
+        className="grid gap-4"
+      >
         {insights.map((insight, index) => (
-          <li key={index} className="flex gap-3 items-start">
-            <span className="flex-shrink-0 w-6 h-6 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center text-sm font-bold">
+          <motion.li
+            key={index}
+            variants={item}
+            className="group flex gap-4 p-4 rounded-xl bg-dark-700/30 hover:bg-dark-700/50 border border-transparent hover:border-dark-600 transition-all"
+          >
+            <span className="flex-shrink-0 w-8 h-8 bg-blue-500/20 text-blue-400 rounded-lg flex items-center justify-center text-sm font-bold group-hover:scale-110 transition-transform">
               {index + 1}
             </span>
-            <p className="text-gray-700 leading-relaxed">{insight}</p>
-          </li>
+            <p className="text-gray-300 leading-relaxed">{insight}</p>
+          </motion.li>
         ))}
-      </ul>
-    </div>
+      </motion.ul>
+    </motion.div>
   );
 };
 

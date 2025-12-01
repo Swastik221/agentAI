@@ -36,10 +36,16 @@ async def research(request: ResearchRequest):
         print(f"Received research request for: {request.topic}")
         
         # Check for API keys
-        if not os.getenv("GOOGLE_API_KEY") or not os.getenv("OPENAI_API_KEY"):
-            print("WARNING: Missing API keys. Returning MOCK DATA for demonstration.")
+        has_search_keys = os.getenv("GOOGLE_API_KEY") and os.getenv("GOOGLE_CSE_ID")
+        has_llm_key = os.getenv("GEMINI_API_KEY")
+
+        if not has_search_keys:
+            print("WARNING: Missing Search API keys. Using MOCK SEARCH RESULTS.")
+            
+        if not has_llm_key:
+            print("WARNING: Missing LLM API keys. Returning FULL MOCK DATA.")
             import time
-            time.sleep(2) # Simulate delay
+            time.sleep(2)
             return {
                 "topic": request.topic,
                 "insights": [
@@ -61,7 +67,20 @@ async def research(request: ResearchRequest):
         
         # 1. Google Search
         print("Step 1: Searching Google...")
-        search_results = search_google(request.topic, num_results=7)
+        if has_search_keys:
+            search_results = search_google(request.topic, num_results=7)
+        else:
+            # Mock search results for Gemini to process
+            search_results = [
+                {"title": f"{request.topic} - Comprehensive Guide", "snippet": f"A detailed guide covering the basics, history, and future of {request.topic}.", "link": f"https://www.techtarget.com/search/{request.topic.replace(' ', '-')}"},
+                {"title": f"The Future of {request.topic}", "snippet": f"Experts predict how {request.topic} will evolve over the next decade.", "link": f"https://www.forbes.com/sites/future-tech/{request.topic.replace(' ', '-')}"},
+                {"title": f"Top Trends in {request.topic} for 2024", "snippet": f"Analysis of the latest trends and innovations in the field of {request.topic}.", "link": f"https://www.wired.com/story/{request.topic.replace(' ', '-')}-trends"},
+                {"title": f"Benefits and Risks of {request.topic}", "snippet": f"Understanding the pros and cons of implementing {request.topic} in various industries.", "link": f"https://hbr.org/2024/01/{request.topic.replace(' ', '-')}-analysis"},
+                {"title": f"{request.topic}: What You Need to Know", "snippet": f"Key concepts, terminology, and real-world applications of {request.topic}.", "link": f"https://www.mit.edu/technology-review/{request.topic.replace(' ', '-')}"}
+            ]
+
+        if not search_results:
+            return {"error": "No search results found."}
         if not search_results:
             return {"error": "No search results found."}
             

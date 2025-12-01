@@ -1,15 +1,21 @@
-from openai import OpenAI
+import google.generativeai as genai
 import os
 import json
 from dotenv import load_dotenv
 
 load_dotenv()
 
-client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+def configure_gemini():
+    api_key = os.getenv("GEMINI_API_KEY")
+    if not api_key:
+        print("Error: Missing GEMINI_API_KEY")
+        return False
+    genai.configure(api_key=api_key)
+    return True
 
 def generate_report(topic: str, context: list):
     """
-    Generates a research report using OpenAI GPT.
+    Generates a research report using Google Gemini.
     
     Args:
         topic (str): The research topic.
@@ -18,6 +24,9 @@ def generate_report(topic: str, context: list):
     Returns:
         dict: A structured JSON report.
     """
+    if not configure_gemini():
+        return {"error": "Gemini API key not configured"}
+
     context_str = "\n\n".join(context)
     
     prompt = f"""
@@ -47,16 +56,16 @@ def generate_report(topic: str, context: list):
     """
 
     try:
-        response = client.chat.completions.create(
-            model="gpt-4o",
-            messages=[
-                {"role": "system", "content": "You are a helpful and precise research assistant. You always output valid JSON."},
-                {"role": "user", "content": prompt}
-            ],
-            response_format={"type": "json_object"}
-        )
+        model = genai.GenerativeModel('gemini-pro')
+        response = model.generate_content(prompt)
         
-        content = response.choices[0].message.content
+        # Clean up response text to ensure it's valid JSON
+        content = response.text.strip()
+        if content.startswith("```json"):
+            content = content[7:-3]
+        elif content.startswith("```"):
+            content = content[3:-3]
+            
         return json.loads(content)
 
     except Exception as e:
@@ -68,11 +77,8 @@ def generate_report(topic: str, context: list):
 
 if __name__ == "__main__":
     # Test the generator
+    os.environ["GEMINI_API_KEY"] = "TEST_KEY" # Placeholder
     test_topic = "AI in Healthcare"
-    test_context = [
-        "AI is used for early disease detection.",
-        "Machine learning models predict patient outcomes.",
-        "Robotic surgery is becoming more common."
-    ]
-    report = generate_report(test_topic, test_context)
-    print(json.dumps(report, indent=2))
+    test_context = ["AI is transforming healthcare."]
+    # report = generate_report(test_topic, test_context)
+    # print(report)
