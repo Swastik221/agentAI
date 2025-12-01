@@ -28,10 +28,16 @@ function App() {
       });
 
       if (!response.ok) {
-        throw new Error('Failed to fetch research data');
+        const errorText = await response.text();
+        throw new Error(`Error ${response.status}: ${response.statusText} - ${errorText}`);
       }
 
       const result = await response.json();
+
+      if (result.error) {
+        throw new Error(result.error);
+      }
+
       setData(result);
     } catch (err) {
       setError(err.message);

@@ -1,8 +1,14 @@
+
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from dotenv import load_dotenv
+import sys
 import os
+
+# Add current directory to sys.path to allow importing local modules on Vercel
+sys.path.append(os.path.dirname(os.path.abspath(__file__)))
+
 import google.generativeai as genai
 import json
 
@@ -148,5 +154,7 @@ async def research(request: ResearchRequest):
         raise HTTPException(status_code=500, detail=str(e))
 
 @app.get("/")
+@app.get("/api")
+@app.get("/api/")
 async def root():
     return {"message": "AI Research Agent Backend is running"}
